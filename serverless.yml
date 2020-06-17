@@ -11,6 +11,8 @@ provider:
   memorySize: 256
   stage: ${opt:stage, 'dev'}
   region: eu-west-1
+  environment:
+    AUCTIONS_TABLE_NAME: ${self:custom.AuctionsTable.name}
   iamRoleStatements:
     - ${file(aws/iam/AuctionsTableIAM.yml):AuctionsTableIAM}
   
@@ -25,3 +27,8 @@ functions:
 resources:
   Resources:
     AuctionsTable: ${file(aws/resources/AuctionsTable.yml):AuctionsTable}
+
+custom:
+  AuctionsTable:
+    name: !Ref AuctionsTable
+    arn: !GetAtt AuctionsTable.Arn
