@@ -24,6 +24,13 @@ functions:
           method: POST
           path: /auction
 
+  getAuctions:
+    handler: src/handlers/get-auctions.handler
+    events:
+      - http:
+          method: GET
+          path: /auctions
+
 resources:
   Resources:
     AuctionsTable: ${file(aws/resources/AuctionsTable.yml):AuctionsTable}
