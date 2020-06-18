@@ -31,6 +31,13 @@ functions:
           method: GET
           path: /auctions
 
+  getAuction:
+    handler: src/handlers/get-auction.handler
+    events:
+      - http:
+          method: GET
+          path: /auctions/{id}
+
 resources:
   Resources:
     AuctionsTable: ${file(aws/resources/AuctionsTable.yml):AuctionsTable}
