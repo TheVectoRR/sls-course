@@ -15,6 +15,7 @@ provider:
     AUCTIONS_TABLE_NAME: ${self:custom.AuctionsTable.name}
   iamRoleStatements:
     - ${file(aws/iam/AuctionsTableIAM.yml):AuctionsTableIAM}
+    - ${file(aws/iam/AuctionsBucketIAM.yml):AuctionsBucketIAM}
   
 functions:
   createAuction:
@@ -57,9 +58,13 @@ functions:
 resources:
   Resources:
     AuctionsTable: ${file(aws/resources/AuctionsTable.yml):AuctionsTable}
+    AuctionsBucket: ${file(aws/resources/AuctionsBucket.yml):AuctionsBucket}
+    AuctionsBucketPolicy: ${file(aws/resources/AuctionsBucket.yml):AuctionsBucketPolicy}
 
 custom:
   authorizer: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:serverless-auth0-authorizer-${self:provider.stage}-auth
   AuctionsTable:
     name: !Ref AuctionsTable
     arn: !GetAtt AuctionsTable.Arn
+  AuctionsBucket:
+    name: auctions-bucket-d3j428-${self:provider.stage}
