@@ -14,6 +14,7 @@ export async function uploadAuctionPicture(event) {
     throw new createError.Forbidden('You are not the seller of this auction!');
   }
 
+  // TODO: should verify that this is an valid base 64 picture
   const base64 = event.body.replace(/^data:image\/\w+;base64,/,'');
   const buffer = Buffer.from(base64, 'base64');
 
